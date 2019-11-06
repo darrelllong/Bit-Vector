@@ -1,6 +1,7 @@
 #ifndef _BV_DDEL
 #define _BV_DDEL
 #include <stdint.h>
+#include <stdbool.h>
 #include <stdlib.h>
 
 typedef struct bitV {
