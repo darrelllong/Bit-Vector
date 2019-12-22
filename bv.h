@@ -1,5 +1,6 @@
 #ifndef _BV_DDEL
 #define _BV_DDEL
+
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -22,7 +23,7 @@ static inline bitV *newVec(uint32_t l) {
 }
 
 static inline void delVec(bitV *v) {
-  if (v->v) {
+  if (v && v->v) {
     free(v->v);
   }
   if (v) {
@@ -45,10 +46,15 @@ static inline void clrBit(bitV *x, uint32_t k) {
   return;
 }
 
-static inline bool valBit(bitV *x, uint32_t k) {
+static inline bool valBit(bitV *x, uint32_t k) { // We must assume a valid pointer
   return (x->v[k / 8] >> k % 8) & 0x1;
 }
 
-static inline uint32_t lenVec(bitV *x) { return x->l; }
+static inline uint32_t lenVec(bitV *x) {
+  if (x) {
+    return x->l;
+  } else
+    return 0;
+}
 
 #endif
