@@ -1,9 +1,11 @@
-#ifndef _BV_DDEL
-#define _BV_DDEL
+#ifndef _BV_8_H
+#define _BV_8_H
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdlib.h>
+
+#define BITS_PER_UNIT 8
 
 typedef struct bitV {
   uint8_t *v;
@@ -13,7 +15,7 @@ typedef struct bitV {
 static inline bitV *newVec(uint32_t l) {
   bitV *v = (bitV *) malloc(sizeof(bitV));
   if (v) {
-    uint32_t bytes = l / 8 + (l % 8) ? 1 : 0;
+    uint32_t bytes = l / BITS_PER_UNIT + (l % BITS_PER_UNIT) ? 1 : 0;
     v->v = (uint8_t *) calloc(bytes, sizeof(uint8_t));
     v->l = l;
     return v;
@@ -34,20 +36,20 @@ static inline void delVec(bitV *v) {
 
 static inline void setBit(bitV *x, uint32_t k) {
   if (x && x->v) {
-    x->v[k / 8] |= (0x1 << k % 8);
+    x->v[k / BITS_PER_UNIT] |= (0x1 << k % BITS_PER_UNIT);
   }
   return;
 }
 
 static inline void clrBit(bitV *x, uint32_t k) {
   if (x && x->v) {
-    x->v[k / 8] &= ~(0x1 << k % 8);
+    x->v[k / BITS_PER_UNIT] &= ~(0x1 << k % BITS_PER_UNIT);
   }
   return;
 }
 
 static inline bool valBit(bitV *x, uint32_t k) { // We must assume a valid pointer
-  return (x->v[k / 8] >> k % 8) & 0x1;
+  return (x->v[k / BITS_PER_UNIT] >> k % BITS_PER_UNIT) & 0x1;
 }
 
 static inline uint32_t lenVec(bitV *x) {
