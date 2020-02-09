@@ -15,7 +15,7 @@ typedef struct bitV {
 static inline bitV *newVec(uint32_t l) {
   bitV *v = (bitV *) malloc(sizeof(bitV));
   if (v) {
-    uint32_t words = l / BITS_PER_UNIT + (l % BITS_PER_UNIT) ? 1 : 0;
+    uint32_t words = l / BITS_PER_UNIT + ((l % BITS_PER_UNIT) ? 1 : 0);
     v->v = (uint64_t *) calloc(words, sizeof(uint64_t));
     v->l = l;
     return v;
@@ -36,14 +36,14 @@ static inline void delVec(bitV *v) {
 
 static inline void setBit(bitV *x, uint32_t k) {
   if (x && x->v) {
-    x->v[k / BITS_PER_UNIT] |= (0x1 << k % BITS_PER_UNIT);
+    x->v[k / BITS_PER_UNIT] |= ((uint64_t) 0x1 << k % BITS_PER_UNIT);
   }
   return;
 }
 
 static inline void clrBit(bitV *x, uint32_t k) {
   if (x && x->v) {
-    x->v[k / BITS_PER_UNIT] &= ~(0x1 << k % BITS_PER_UNIT);
+    x->v[k / BITS_PER_UNIT] &= ~((uint64_t) 0x1 << k % BITS_PER_UNIT);
   }
   return;
 }
