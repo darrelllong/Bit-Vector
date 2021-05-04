@@ -1,5 +1,4 @@
-#ifndef _BV_16_H
-#define _BV_16_H
+#pragma once
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -53,10 +52,5 @@ static inline bool valBit(bitV *x, uint32_t k) { // We must assume a valid point
 }
 
 static inline uint32_t lenVec(bitV *x) {
-  if (x) {
-    return x->l;
-  } else
-    return 0;
+  return x ? x->l : 0;
 }
-
-#endif
