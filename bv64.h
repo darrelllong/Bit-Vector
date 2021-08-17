@@ -51,7 +51,7 @@ static inline void clrBit(bitV *x, uint32_t k) {
   return;
 }
 
-static inline bool valBit(bitV *x, uint32_t k) { // We must assume a valid pointer
+static inline bool getBit(bitV *x, uint32_t k) { // We must assume a valid pointer
   return (x->v[index(k)] >> k % BITS_PER_UNIT) & 0x1;
 }
 
